@@ -1,0 +1,34 @@
+create table role (id int not null auto_increment primary key,name varchar(45) not null, description varchar (45) not null);
+
+create table users (id int not null primary key, user varchar (45) not null, password varchar (45) not null, name varchar (45) not null, last_name varchar (45) not null,
+address varchar (45) not null, contact char (12), rol_id int);
+
+create table request (id int not null auto_increment primary key, date date not null, detail varchar (45));
+
+create table feature (id int not null auto_increment primary key, date date not null, detail varchar(45) not null, product_id int, request_id int);
+ 
+create table product (id int not null auto_increment primary key, name varchar(45), quantity int not null, price float not null, iva float not null);
+
+create table branch (id int not null auto_increment primary key, name varchar (45) not null, address varchar (45) not null);
+
+create table user_has_request (user_id int, request_id int); 
+
+create table branch_has_product (branch_id int, product_id int);
+
+create table state (product_id int, description varchar (45)); 
+
+alter table state add foreign key (product_id) references product (id);
+
+alter table branch_has_product add foreign key (branch_id) references branch (id);
+
+alter table branch_has_product add foreign key (product_id) references product (id);
+
+alter table user_has_request add foreign key (user_id) references users (id);
+
+alter table user_has_request add foreign key (request_id) references request (id);
+
+alter table users add foreign key (rol_id) references role (id);
+
+alter table feature add foreign key (product_id) references product (id);
+
+alter table feature add foreign key (request_id) references request (id);
